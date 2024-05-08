@@ -1,4 +1,4 @@
-@testable import AnyCodable
+@testable import AnyCodableKit
 import XCTest
 
 class AnyDecodableTests: XCTestCase {
