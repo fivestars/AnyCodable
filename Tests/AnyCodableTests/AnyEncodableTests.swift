@@ -18,7 +18,7 @@ class AnyEncodableTests: XCTestCase {
     }
     
     func testJSONEncoding() throws {
-        
+
         let someEncodable = AnyEncodable(SomeEncodable(string: "String", int: 100, bool: true, hasUnderscore: "another string"))
         
         let dictionary: [String: AnyEncodable] = [
@@ -122,6 +122,18 @@ class AnyEncodableTests: XCTestCase {
         XCTAssert(encodedJSONObject["ulonglong"] is UInt64)
 
         XCTAssert(encodedJSONObject["double"] is Double)
+    }
+
+
+    func testEncodeNSNumberOneAndZeroAsInt() throws {
+        let dictionary: [NSNumber] = [0, 1]
+
+        let encoder = JSONEncoder()
+
+        let json = try encoder.encode(AnyEncodable(dictionary))
+        let jsonString = String(data: json, encoding: .utf8)!
+
+        XCTAssertEqual(jsonString, "[0,1]")
     }
 
     func testStringInterpolationEncoding() throws {
